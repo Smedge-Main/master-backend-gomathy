@@ -1,6 +1,9 @@
 import { IsIn, IsOptional } from 'class-validator';
 
-export class PipelineDto {
+export class ModuleDto {
+  // @IsOptional()
+  // pipeline?: string;
+
   @IsOptional()
   name?: string;
 

@@ -10,6 +10,12 @@ export class PipelineService {
     @InjectModel(Pipeline.name) private pipelineModel: Model<PipelineDocument>,
   ) {}
 
+  async getpipeline(): Promise<Pipeline[]> {
+    const pipeline = await this.pipelineModel.find();
+    console.log(pipeline);
+    return pipeline;
+  }
+
   async createpipeline(dto: PipelineDto): Promise<Pipeline> {
     const create = await this.pipelineModel.create(dto);
     console.log(create);

@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { PipelineDto } from './Dto/pipeline.dto';
 import { Pipeline } from './Schema/pipeline.schema';
 import { PipelineService } from './pipeline.service';
@@ -6,6 +6,11 @@ import { PipelineService } from './pipeline.service';
 @Controller('pipeline')
 export class PipelineController {
   constructor(private readonly pipelineService: PipelineService) {}
+
+  @Get()
+  async getPipeline(): Promise<Pipeline[]> {
+    return this.pipelineService.getpipeline();
+  }
 
   @Post()
   async createPipeline(@Body() dto: PipelineDto): Promise<Pipeline> {
