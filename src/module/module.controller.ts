@@ -32,4 +32,13 @@ export class ModuleController {
   ): Promise<Module[]> {
     return this.moduleService.getModulesByPipeline(pipelineId);
   }
+
+  // @Get('pipeline/:pipelineId/count')
+  // async getModulesCountByPipeline(
+  //   @Param('pipelineId') pipelineId: string,
+  // ): Promise<{ pipelineId: string; count: number }> {
+  //   const count =
+  //     await this.moduleService.getModulesCountByPipeline(pipelineId);
+  //   return { pipelineId, count };
+  // }
 }

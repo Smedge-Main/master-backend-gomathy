@@ -25,4 +25,6 @@ export class PipelineController {
   ): Promise<Pipeline> {
     return this.pipelineService.Updatepipeline(id, dto);
   }
+
+  
 }

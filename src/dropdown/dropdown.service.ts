@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import mongoose, { Model, Types } from 'mongoose';
 import { Dropdown } from './Schema/dropdown.schema';
 import { CreateDropdownDto } from './Dto/dropdown.dto';
 
@@ -13,14 +13,14 @@ export class DropdownService {
   async create(moduleId: string, dto: CreateDropdownDto): Promise<Dropdown> {
     const newDropdown = new this.dropdownModel({
       ...dto,
-      moduleId: new Types.ObjectId(moduleId),
+      moduleId: new mongoose.Types.ObjectId(moduleId),
     });
     return newDropdown.save();
   }
 
   async findByModule(moduleId: string): Promise<Dropdown[]> {
     return this.dropdownModel
-      .find({ moduleId: new Types.ObjectId(moduleId) })
+      .find({ moduleId: new mongoose.Types.ObjectId(moduleId) })
       .exec();
   }
 

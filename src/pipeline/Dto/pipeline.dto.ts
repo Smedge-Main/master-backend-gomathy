@@ -1,10 +1,12 @@
-import { IsIn, IsOptional } from 'class-validator';
+import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class PipelineDto {
-  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
   name?: string;
 
-  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
   @IsIn(['active', 'inactive'], {
     message: 'Status must be either "active" or "inactive"',
   })
