@@ -13,6 +13,12 @@ export class Pipeline extends Document {
 
   @Prop({ required: false, default: 0 })
   noOfMod: number;
+
+  @Prop({ default: () => new Date().toISOString() })
+  createdon: string;
+
+  @Prop({ default: 'admin' })
+  createdby: string;
 }
 
 export const PipelineSchema = SchemaFactory.createForClass(Pipeline);

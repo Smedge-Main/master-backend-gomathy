@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 
 import { ModuleService } from './module.service';
 import {
@@ -33,12 +33,11 @@ export class ModuleController {
     return this.moduleService.getModulesByPipeline(pipelineId);
   }
 
-  // @Get('pipeline/:pipelineId/count')
-  // async getModulesCountByPipeline(
-  //   @Param('pipelineId') pipelineId: string,
-  // ): Promise<{ pipelineId: string; count: number }> {
-  //   const count =
-  //     await this.moduleService.getModulesCountByPipeline(pipelineId);
-  //   return { pipelineId, count };
-  // }
+  @Patch(':id')
+  async updatemodule(
+    @Param('id') id: string,
+    @Body() dto: ModuleDto,
+  ): Promise<Module> {
+    return this.moduleService.Updatemodule(id, dto);
+  }
 }

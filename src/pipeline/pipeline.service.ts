@@ -17,9 +17,13 @@ export class PipelineService {
   }
 
   async createpipeline(dto: PipelineDto): Promise<Pipeline> {
-    const create = await this.pipelineModel.create(dto);
-    console.log(create);
+    const create = await this.pipelineModel.create({
+      ...dto,
+      createdon: new Date().toISOString(), // current date
+      createdby: 'Admin', // default creator
+    });
 
+    console.log(create);
     return create;
   }
 

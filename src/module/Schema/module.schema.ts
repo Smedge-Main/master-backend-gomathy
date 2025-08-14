@@ -4,7 +4,7 @@ import { Pipeline } from 'src/pipeline/Schema/pipeline.schema';
 
 export type ModuleDocument = Module & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Module extends Document {
   @Prop()
   pipeline?: string;
@@ -17,6 +17,12 @@ export class Module extends Document {
 
   @Prop({ type: Types.ObjectId, ref: Pipeline.name, required: true })
   pipelineId: Types.ObjectId; // Reference to Pipeline
+
+  @Prop({ required: false, default: 0 })
+  noOfdropdown: number;
+
+  @Prop({ default: () => new Date().toISOString() })
+  createdon: string;
 }
 
 export const ModuleSchema = SchemaFactory.createForClass(Module);

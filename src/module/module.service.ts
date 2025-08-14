@@ -53,6 +53,8 @@ export class ModuleService {
     const create = await this.moduleModel.create({
       ...dto,
       pipelineId: _id,
+      createdon: new Date().toISOString(),
+      createdby: 'Admin',
     });
 
     if (!create)
@@ -62,12 +64,6 @@ export class ModuleService {
     console.log('pipeline: ', pipeline);
     return create;
   }
-
-  // async getModulesByPipeline(pipelineId: string): Promise<Module[]> {
-  //   return this.moduleModel
-  //     .find({ pipelineId: new Types.ObjectId(pipelineId) })
-  //     .exec();
-  // }
 
   async getModulesByPipeline(pipelineId: string): Promise<Module[]> {
     try {
@@ -87,4 +83,17 @@ export class ModuleService {
       throw error;
     }
   }
+
+  async Updatemodule(id: string, dto: ModuleDto): Promise<Module> {
+    const updatedmodule = await this.moduleModel.findByIdAndUpdate(id, dto, {
+      new: true,
+    });
+    if (!updatedmodule)
+      throw new NotFoundException(`Module with this ${id} is not found`);
+    return updatedmodule;
+  }
+}
+
+function populate(arg0: string, arg1: string) {
+  throw new Error('Function not implemented.');
 }
