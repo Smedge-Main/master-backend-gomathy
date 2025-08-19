@@ -12,8 +12,12 @@ export class Module extends Document {
   @Prop()
   name?: string;
 
-  @Prop({ enum: ['active', 'inactive'], required: false })
-  status?: string;
+  @Prop({
+    enum: ['Active', 'Inactive', 'active', 'inactive'],
+    required: false,
+    default: 'Active',
+  })
+  status: string;
 
   @Prop({ type: Types.ObjectId, ref: Pipeline.name, required: true })
   pipelineId: Types.ObjectId; // Reference to Pipeline
@@ -21,8 +25,8 @@ export class Module extends Document {
   @Prop({ required: false, default: 0 })
   noOfdropdown: number;
 
-  @Prop({ default: () => new Date().toISOString() })
-  createdon: string;
+  @Prop({ type: Date, default: Date.now })
+  createdon: Date;
 }
 
 export const ModuleSchema = SchemaFactory.createForClass(Module);

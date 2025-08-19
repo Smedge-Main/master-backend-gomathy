@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -28,6 +29,11 @@ export class DropdownController {
     return this.dropdownService.findByModule(moduleId);
   }
 
+  @Get(':id')
+  async getDropdown(@Param('id') id: string): Promise<Dropdown> {
+    return this.dropdownService.findById(id);
+  }
+
   @Patch(':id')
   async updatedropdown(
     @Param('id') id: string,
@@ -39,5 +45,13 @@ export class DropdownController {
   @Delete(':id')
   async deletedropdown(@Param('id') id: string): Promise<Dropdown | null> {
     return this.dropdownService.deletedropdown(id);
+  }
+
+  @Delete(':dropdownId/option/:index')
+  async deleteOption(
+    @Param('dropdownId') dropdownId: string,
+    @Param('index') index: number,
+  ) {
+    return this.dropdownService.deleteOption(dropdownId, index);
   }
 }

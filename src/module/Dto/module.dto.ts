@@ -8,7 +8,7 @@ export class ModuleDto {
   name?: string;
 
   @IsOptional()
-  @IsIn(['active', 'inactive'], {
+  @IsIn(['Active', 'Inactive'], {
     message: 'Status must be either "active" or "inactive"',
   })
   status?: string;

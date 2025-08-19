@@ -8,7 +8,11 @@ export class Pipeline extends Document {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ enum: ['active', 'inactive'], required: true })
+  @Prop({
+    enum: ['Active', 'Inactive', 'active', 'inactive'],
+    required: false,
+    default: 'Active',
+  })
   status: string;
 
   @Prop({ required: false, default: 0 })
@@ -17,7 +21,7 @@ export class Pipeline extends Document {
   @Prop({ default: () => new Date().toISOString() })
   createdon: string;
 
-  @Prop({ default: 'admin' })
+  @Prop({ default: 'Admin' })
   createdby: string;
 }
 

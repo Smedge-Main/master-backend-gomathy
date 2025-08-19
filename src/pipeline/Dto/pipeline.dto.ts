@@ -7,7 +7,7 @@ export class PipelineDto {
 
   @IsNotEmpty()
   @IsString()
-  @IsIn(['active', 'inactive'], {
+  @IsIn(['Active', 'Inactive'], {
     message: 'Status must be either "active" or "inactive"',
   })
   status?: string;

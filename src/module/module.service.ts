@@ -53,7 +53,7 @@ export class ModuleService {
     const create = await this.moduleModel.create({
       ...dto,
       pipelineId: _id,
-      createdon: new Date().toISOString(),
+      createdon: new Date(),
       createdby: 'Admin',
     });
 

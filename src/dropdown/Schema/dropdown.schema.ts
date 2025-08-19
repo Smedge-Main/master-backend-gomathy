@@ -1,13 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-@Schema()
+@Schema({ timestamps: true })
 export class Dropdown extends Document {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ enum: ['active', 'inactive'], required: false })
-  status?: string;
+  @Prop({
+    enum: ['Active', 'Inactive', 'active', 'inactive'],
+    required: false,
+    default: 'Active',
+  })
+  status: string;
 
   @Prop({ type: [String], required: true })
   options: string[];
@@ -15,11 +19,8 @@ export class Dropdown extends Document {
   @Prop({ type: Types.ObjectId, ref: 'Module', required: true })
   moduleId: Types.ObjectId;
 
-  // @Prop({ type: Number, default: 0 })
-  // noOfdropdown?: number;
-
-  @Prop({ default: () => new Date().toISOString() })
-  createdon: string;
+  @Prop({ type: Date, default: Date.now })
+  createdon: Date;
 
   @Prop({ default: 'Admin' })
   createdby: string;
