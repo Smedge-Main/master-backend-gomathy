@@ -8,12 +8,12 @@ export class Pipeline extends Document {
   @Prop({ required: true })
   name: string;
 
-  @Prop({
-    enum: ['Active', 'Inactive', 'active', 'inactive'],
-    required: false,
-    default: 'Active',
-  })
-  status: string;
+  // @Prop({
+  //   enum: ['Active', 'Inactive', 'active', 'inactive'],
+  //   required: false,
+  //   default: 'Active',
+  // })
+  // status: string;
 
   @Prop({ required: false, default: 0 })
   noOfMod: number;
