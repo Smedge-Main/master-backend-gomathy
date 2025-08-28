@@ -17,7 +17,7 @@ import {
 import { ModuleService } from './module.service';
 import { ModuleController } from './module.controller';
 import { Pipeline, PipelineSchema } from 'src/pipeline/Schema/pipeline.schema';
-import { Dropdown, DropdownSchema } from 'src/dropdown/Schema/dropdown.schema';
+import DropdownSchema, { Dropdown } from 'src/dropdown/Schema/dropdown.schema';
 
 @Module({
   imports: [

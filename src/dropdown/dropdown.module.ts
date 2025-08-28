@@ -1,9 +1,10 @@
 import { MongooseModule } from '@nestjs/mongoose';
-import { Dropdown, DropdownSchema } from './Schema/dropdown.schema';
+import DropdownSchema, { Dropdown } from './Schema/dropdown.schema';
 import { DropdownService } from './dropdown.service';
 import { DropdownController } from './dropdown.controller';
 import { Module } from '@nestjs/common';
 import { ModuleSchema } from 'src/module/Schema/module.schema';
+import { RabbitmqModule } from 'src/rabbitmq/rabbitmq.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ModuleSchema } from 'src/module/Schema/module.schema';
       { name: Dropdown.name, schema: DropdownSchema },
       { name: Module.name, schema: ModuleSchema },
     ]),
+    RabbitmqModule,
   ],
   providers: [DropdownService],
   controllers: [DropdownController],
