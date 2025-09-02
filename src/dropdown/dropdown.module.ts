@@ -5,6 +5,7 @@ import { DropdownController } from './dropdown.controller';
 import { Module } from '@nestjs/common';
 import { ModuleSchema } from 'src/module/Schema/module.schema';
 import { RabbitmqModule } from 'src/rabbitmq/rabbitmq.module';
+import { TutorflowRabbitMqModule } from 'src/rabbitmq/tutorflowRabbitMQ/tutorflow-rabbit-mq/tutorflow-rabbit-mq.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { RabbitmqModule } from 'src/rabbitmq/rabbitmq.module';
       { name: Module.name, schema: ModuleSchema },
     ]),
     RabbitmqModule,
+    TutorflowRabbitMqModule,
   ],
   providers: [DropdownService],
   controllers: [DropdownController],

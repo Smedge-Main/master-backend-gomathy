@@ -3,6 +3,7 @@ import { PipelineController } from './pipeline.controller';
 import { PipelineService } from './pipeline.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Pipeline, PipelineSchema } from './Schema/pipeline.schema';
+import { RabbitmqModule } from 'src/rabbitmq/rabbitmq.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { Pipeline, PipelineSchema } from './Schema/pipeline.schema';
         schema: PipelineSchema,
       },
     ]),
+    RabbitmqModule,
   ],
   controllers: [PipelineController],
   providers: [PipelineService],

@@ -41,6 +41,14 @@ export class RabbitmqController {
 
   @Get('send-data')
   async sendData() {
-    return (await this.rabbitmqService.sendCollegeAdminModules()).toPromise();
+    return (
+      await this.rabbitmqService.sendCollegeAdminModules('college admin')
+    ).toPromise();
   }
+
+  // // GET /rabbitmq/dropdowns/app-admin
+  // @Get('dropdowns/app-admin')
+  // async getAppAdminDropdowns() {
+  //   return this.rabbitmqService.getModulesWithDropdownsByPipeline('App Admin');
+  // }
 }

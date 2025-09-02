@@ -5,23 +5,26 @@ import { Model } from 'mongoose';
 import { Dropdown } from 'src/dropdown/Schema/dropdown.schema';
 import { Module } from 'src/module/Schema/module.schema';
 import { Pipeline } from 'src/pipeline/Schema/pipeline.schema';
+import { ModuleWithDropdowns } from './Dto/module-with-dropdowns.dto';
 
-interface DropdownData {
-  dropdownName: string;
-  options: string[];
-}
+// interface DropdownData {
+//   dropdownName: string;
+//   options: string[];
+// }
 
-interface ModuleWithDropdowns {
-  moduleName?: string;
-  pipelineName?: string;
-  dropdowns: DropdownData[];
-}
+// interface ModuleWithDropdowns {
+//   moduleName?: string;
+//   pipelineName?: string;
+//   dropdowns: DropdownData[];
+// }
 
 @Injectable()
 export class RabbitmqService {
+  tutorFlowClient: any;
   constructor(
     @Inject('COLLEGE_ADMIN_SERVICE')
     private readonly collegeAdminClient: ClientProxy,
+
     @InjectModel(Dropdown.name) private dropdownModel: Model<Dropdown>,
     @InjectModel(Module.name) private moduleModel: Model<Module>,
     @InjectModel(Pipeline.name) private pipelineModel: Model<Pipeline>,
@@ -93,7 +96,7 @@ export class RabbitmqService {
 
       result.push({
         moduleName: m.name,
-        pipelineName,
+        pipelineName: pipeline.name,
         dropdowns: dropdowns.map((d) => ({
           dropdownName: d.name,
           options: (d.options || [])
@@ -107,12 +110,42 @@ export class RabbitmqService {
   }
 
   // 🔹 Send college admin modules only
-  async sendCollegeAdminModules() {
-    const data = await this.getModulesWithDropdownsByPipeline('college admin');
-    console.log('Publishing to RabbitMQ with payload:', JSON.stringify(data));
-    return this.collegeAdminClient.send(
-      { cmd: 'receive-modules-with-dropdowns' },
-      data,
+  // async sendCollegeAdminModules() {
+  //   const data = await this.getModulesWithDropdownsByPipeline('college admin');
+  //   console.log('Publishing to RabbitMQ with payload:', JSON.stringify(data));
+  //   return this.collegeAdminClient.emit(
+  //     { cmd: 'receive-modules-with-dropdowns' },
+  //     data,
+  //   );
+  // }
+
+  async sendCollegeAdminModules(pipeline: string) {
+    const normalizedPipeline = pipeline.toLowerCase(); // normalize input
+    const data =
+      await this.getModulesWithDropdownsByPipeline(normalizedPipeline);
+    console.log(
+      `Publishing ${pipeline} modules to RabbitMQ with payload:`,
+      JSON.stringify(data),
     );
+
+    if (normalizedPipeline === 'college admin') {
+      return this.collegeAdminClient.emit(
+        { cmd: 'receive-modules-with-dropdowns' },
+        data,
+      );
+    } else {
+      throw new Error(`Invalid pipeline: ${pipeline}`);
+    }
   }
+
+  // async sendCollegeAdminModules(updateddropdown: Dropdown) {
+  //   console.log(
+  //     'Publishing to RabbitMQ with payload:',
+  //     JSON.stringify(updateddropdown),
+  //   );
+  //   return this.collegeAdminClient.send(
+  //     { cmd: 'receive-modules-with-dropdowns' },
+  //     updateddropdown,
+  //   );
+  // }
 }

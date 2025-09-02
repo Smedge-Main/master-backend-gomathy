@@ -20,6 +20,7 @@ import { RabbitmqService } from './rabbitmq.service';
 import DropdownSchema, { Dropdown } from 'src/dropdown/Schema/dropdown.schema';
 import { ModuleSchema } from 'src/module/Schema/module.schema';
 import { Pipeline, PipelineSchema } from 'src/pipeline/Schema/pipeline.schema';
+import { PipelineController } from 'src/pipeline/pipeline.controller';
 
 @Module({
   imports: [

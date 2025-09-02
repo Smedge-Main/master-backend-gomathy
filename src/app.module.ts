@@ -42,6 +42,8 @@ import { DropdownModule } from './dropdown/dropdown.module';
 import { RabbitmqModule } from './rabbitmq/rabbitmq.module';
 import { MicroservicesClientModule } from './shared/microservices-client.module';
 
+import { TutorflowRabbitMqModule } from './rabbitmq/tutorflowRabbitMQ/tutorflow-rabbit-mq/tutorflow-rabbit-mq.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -53,6 +55,7 @@ import { MicroservicesClientModule } from './shared/microservices-client.module'
     ModuleModule,
     DropdownModule,
     RabbitmqModule,
+    TutorflowRabbitMqModule,
 
     // 👇 already registers COLLEGE_ADMIN_SERVICE client
     MicroservicesClientModule,

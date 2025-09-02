@@ -57,4 +57,5 @@ export class CreateDropdownDto {
 
   @IsMongoId()
   moduleId: string;
+  pipelineName: any;
 }

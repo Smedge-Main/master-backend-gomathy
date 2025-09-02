@@ -10,6 +10,7 @@ import { Dropdown } from './Schema/dropdown.schema';
 import { CreateDropdownDto } from './Dto/dropdown.dto';
 import { ModuleDocument, ModuleSchema } from 'src/module/Schema/module.schema';
 import { RabbitmqService } from '../rabbitmq/rabbitmq.service';
+import { TutorflowRabbitMqService } from 'src/rabbitmq/tutorflowRabbitMQ/tutorflow-rabbit-mq/tutorflow-rabbit-mq.service';
 
 @Injectable()
 export class DropdownService {
@@ -20,6 +21,7 @@ export class DropdownService {
     @InjectModel(Dropdown.name) private dropdownModel: Model<Dropdown>,
     @InjectModel(Module.name) private moduleModel: Model<ModuleDocument>,
     private readonly rabbitmqService: RabbitmqService,
+    private readonly tutorflowRabbitMqService: TutorflowRabbitMqService,
   ) {}
 
   async create(moduleId: string, dto: CreateDropdownDto): Promise<Dropdown> {
@@ -96,9 +98,14 @@ export class DropdownService {
       { new: true },
     );
     console.log('Updated document:', updateddropdown);
-    if (!updateddropdown)
+    if (!updateddropdown) {
       throw new NotFoundException(`Dropdown with this ${id} is not found`);
-    await this.rabbitmqService.sendCollegeAdminModules();
+    }
+
+    // Fire-and-forget send to RabbitMQ
+    this.rabbitmqService.sendCollegeAdminModules('College admin');
+
+    this.tutorflowRabbitMqService.sendTutorFlowModules('Tutor flow');
     return updateddropdown;
   }
 
